@@ -750,7 +750,6 @@ def WriteOutputImage(projection_reference,path,folder,output_name,cols,rows,type
         outBand = outDs.GetRasterBand(i+1)
         
         outmatrix = array_list[i].reshape(rows,cols)
-        print outmatrix[0][0],outmatrix[2][2]
         outBand.WriteArray(outmatrix, 0, 0)
         
     # georeference the image and set the projection
@@ -1370,9 +1369,9 @@ def spectral_features(dn_value,input_data,seg_data):
     for l in range(0,len(seg_pos[0])):
         mat_pos[l] = input_data[seg_pos[0][l]][seg_pos[1][l]]
     mean = mat_pos.mean()
-    #std = mat_pos.std()
-    #maxbr = np.amax(mat_pos)
-    #minbr = np.amin(mat_pos)
+    std = mat_pos.std()
+    maxbr = np.amax(mat_pos)
+    minbr = np.amin(mat_pos)
     mode_ar = scipy.stats.mode(mat_pos)
     mode = mode_ar[0][0]
     mat_pos=None
@@ -1429,11 +1428,11 @@ def textural_features(dn_value,input_data,seg_data):
     
     glcm = greycomatrix(data_glcm, [1], [0], levels=256, symmetric=False, normed=True)
     contrast= greycoprops(glcm, 'contrast')[0][0]
-    #energy= greycoprops(glcm, 'energy')[0][0]
+    energy= greycoprops(glcm, 'energy')[0][0]
     homogeneity= greycoprops(glcm, 'homogeneity')[0][0]
-    #correlation=greycoprops(glcm, 'correlation')[0][0]
+    correlation=greycoprops(glcm, 'correlation')[0][0]
     dissimilarity=greycoprops(glcm, 'dissimilarity')[0][0]
-    #ASM=greycoprops(glcm, 'ASM')[0][0]
+    ASM=greycoprops(glcm, 'ASM')[0][0]
     
     return contrast,energy,homogeneity,correlation,dissimilarity,ASM
  
